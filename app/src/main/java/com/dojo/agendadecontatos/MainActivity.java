@@ -94,6 +94,16 @@ public class MainActivity extends AppCompatActivity {
         itemLigar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                if(ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.CALL_PHONE)) {
+                    } else {
+                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 0);
+                    }
+                } else {
+                    ligarParaContato(contatoSelecionado);
+
+                }
+
                 return false;
             }
         });
@@ -111,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
         itemSite.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                Intent intentSite = new Intent(Intent.ACTION_VIEW);
+                intentSite.setData(Uri.parse("http://"+contatoSelecionado.getSite()));
+                startActivity(intentSite);
                 return false;
             }
         });
@@ -143,4 +156,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
         }
     }
+
+    public void ligarParaContato(Contato contato){
+        if(contato != null){
+            Intent intentLigar = new Intent(Intent.ACTION_CALL);
+            intentLigar.setData(Uri.parse("tel:"+contato.getTelefone()));
+            startActivity(intentLigar);
+        }
+    }
+
 }

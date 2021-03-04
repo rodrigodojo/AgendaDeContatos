@@ -51,6 +51,7 @@ public class ContatoDAO extends SQLiteOpenHelper {
         values.put("site",contato.getSite());
         values.put("telefone",contato.getTelefone());
         values.put("endereco",contato.getEndereço());
+        //values.put("caminhoFoto",contato.getFoto());
 
         getWritableDatabase().insert(TABELA,null, values);
     }
@@ -69,13 +70,13 @@ public class ContatoDAO extends SQLiteOpenHelper {
         values.put("site",contato.getSite());
         values.put("telefone",contato.getTelefone());
         values.put("endereco",contato.getEndereço());
-
+        //values.put("caminhoFoto",contato.getFoto());
         String[] idParaAlterar = {contato.getId().toString()};
 
         getWritableDatabase().update(TABELA,values,"id=?",idParaAlterar);
     }
 
-    public boolean inContato(String telefone){
+    public boolean isContato(String telefone){
         String[] parametros = {telefone};
         Cursor cursor = getReadableDatabase().rawQuery("SELECT telefone FROM " + TABELA + " WHERE telefone=?",parametros);
         int total = cursor.getCount();

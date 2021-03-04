@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dojo.agendadecontatos">
 
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -10,12 +13,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AgendaDeContatos">
+        android:theme="@style/Theme.AgendaDeContatos"
+        tools:ignore="ExtraText">
         <activity
             android:name=".Formulario"
             android:label="@string/title_activity_formulario"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AgendaDeContatos.NoActionBar"></activity>
+            android:theme="@style/Theme.AgendaDeContatos.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -26,6 +30,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="8115000" />
+
+        <receiver
+            android:name=".SMSReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+            >
+        </receiver>
     </application>
 
 </manifest>
